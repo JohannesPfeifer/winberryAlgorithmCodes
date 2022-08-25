@@ -1,3 +1,6 @@
+This repository contains an updated version of the original toolkit to be compatible with Dynare 5.x. The
+original readme follows below.
+
 This archive contains MATLAB and DYNARE software for solving the Krusell and Smith (1998) model, using
 the method developed in "A Toolbox for Solving and Estimating Heterogeneous Agent Macro Models" by Thomas
 Winberry.  It also contains the PDF file "dynareUserGruide.pdf" explaining how the codes work, and how to 

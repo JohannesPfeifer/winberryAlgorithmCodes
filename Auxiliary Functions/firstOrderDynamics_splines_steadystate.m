@@ -1,4 +1,4 @@
-function [ys,check] = firstOrderDynamics_polynomials_steadyState(ys,exo)
+function [ys,params,check] = firstOrderDynamics_polynomials_steadyState(ys,exo,M_,options)
 
 % Computes stationary equilibrium of the model for Dynare; format is required
 % to be called by Dynare (follows example of NK_baseline.mod in Dynare examples)
@@ -20,12 +20,9 @@ setParameters;
 % Initialize indicator
 check = 0;
 
-% Read parameters from Dynare
-global M_ 
-
 % Read out parameters to access them with their name
 for iParameter = 1:M_.param_nbr
-  paramname = deblank(M_.param_names(iParameter,:));
+  paramname = M_.param_names{iParameter,:};
   eval(['global ' paramname]);
   eval([ paramname ' = M_.params(' int2str(iParameter) ');']);
 end
@@ -74,9 +71,14 @@ logAggregateInvestment = log(ddelta * aggregateCapital);
 logAggregateConsumption = log(exp(logAggregateOutput) - exp(logAggregateInvestment));
 logWage = log(w);
 
+params=NaN(M_.param_nbr,1);
+for iter = 1:length(M_.params) %update parameters set in the file
+    eval([ 'params(' num2str(iter) ',1) = ' M_.param_names{iter} ';' ])
+end
+
 % Save endogenous variables back into ys
 for ii = 1 : M_.orig_endo_nbr;
-  varname = deblank(M_.endo_names(ii,:));
+    varname = M_.endo_names{ii,:};
   eval(['ys(' int2str(ii) ') = ' varname ';']); 
 end
 

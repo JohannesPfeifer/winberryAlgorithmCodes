@@ -18,7 +18,7 @@ parameters bbeta ssigma aaBar aalpha ddelta aggEmployment
 //Load in their values
 @#define nEconomicParameters = 10
 for iParam = 1 : @{nEconomicParameters}
-	parameterName = deblank(M_.param_names(iParam,:));
+	parameterName = M_.param_names{iParam,:};
 	if isfield(economicParameters,parameterName)
 		M_.params(iParam) = eval(['economicParameters.' parameterName]);
 	end
@@ -48,7 +48,7 @@ parameters nEpsilon nAssets nState assetsMin assetsMax nAssetsFine nStateFine nA
 // Load in their values
 @#define nApproximationParameters = 15
 for iParam = 1 : @{nApproximationParameters}
-	parameterName = deblank(M_.param_names(@{nEconomicParameters} + 6 + iParam,:));
+	parameterName = M_.param_names{@{nEconomicParameters} + 6 + iParam,:};
 	if isfield(approximationParameters,parameterName)
 		M_.params(@{nEconomicParameters} + 6 + iParam) = eval(['approximationParameters.' parameterName]);
 	end
